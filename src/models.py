@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Personajes(Base):
+class Personajes(db.Base):
     __tablename__ = 'personjes'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
@@ -11,16 +11,16 @@ class Personajes(Base):
     genero = Column(String(250), nullable=False)
     color_de_ojos = Column(String(250), nullable=False)
 
-class Planetas(Base):
+class Planetas(db.Base):
     __tablename__ = 'planetas'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    diameter = Column(String(250)
-    population = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False)
+    diameter = Column(Integer, nullable=False)
+    population = Column(Integer, nullable=False)
     terrain = Column(String(250), nullable=False)
+    url = Column(String(250), nullable=False)
   
-class User(Base):
+class User(db.Base):
     __tablename__ = 'user'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
@@ -29,14 +29,15 @@ class User(Base):
     mail= Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
 
-class Favoritos(Base):
-    __tablename__ = 'planetas'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Favoritos(db.Models):
+    __tablename__ = 'favoritos'
+
     id = Column(Integer, primary_key=True)
-    user_id = Column(String(250)
-    planeta_id = Column(String(250), nullable=False)
-    persona_id = Column(String(250), nullable=False)
+
+    User_id = Column(Integer, ForeignKey('user.id'))
+    User = relationship(User)
+    tipoFavorito = Column(String(250), nullable=False)
+    favoritoId = Column(String(250), nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.username
