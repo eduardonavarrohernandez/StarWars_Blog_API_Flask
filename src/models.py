@@ -19,6 +19,7 @@ class User(db.Model):
             "mail": self.mail,
             # do not serialize the password, its a security breach
         }
+
 class Personajes(db.Model):
     __tablename__ = 'personajes'
 
@@ -28,6 +29,13 @@ class Personajes(db.Model):
     hair_color = db.Column(db.String(250), nullable=False)
     eye_color = db.Column(db.String(250), nullable=False)
     url = db.Column(db.String(250), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            # do not serialize the password, its a security breach
+        }
 
 class Planetas(db.Model):
     __tablename__ = 'planetas'
@@ -39,6 +47,14 @@ class Planetas(db.Model):
     terrain = db.Column(db.String(250), nullable=False)
     url = db.Column(db.String(250), nullable=False)
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "diameter": self.diameter,
+            # do not serialize the password, its a security breach
+        }
+
 
 class Favoritos(db.Model):
     __tablename__ = 'favoritos'
@@ -49,4 +65,12 @@ class Favoritos(db.Model):
     User = db.relationship(User)
     tipoFavorito = db.Column(db.String(250), nullable=False)
     favoritoId = db.Column(db.String(250), nullable=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "tipoFavorito": self.tipoFavorito,
+            "favoritoId": self.favoritoId,
+            # do not serialize the password, its a security breach
+        }
 

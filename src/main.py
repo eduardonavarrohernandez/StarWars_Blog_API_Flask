@@ -89,6 +89,27 @@ def login():
         return jsonify({"token": my_token})
 
 
+@app.route('/Personajes', methods=['GET'])
+def Personajes():
+    id = request.json.get("id", None)
+    name = request.json.get("name", None)
+    
+
+    # valida si estan vacios los ingresos
+    if id is None:
+        return jsonify({"msg": "No gender was provided"}), 400
+    if name is None:
+        return jsonify({"msg": "No name was provided"}), 400
+    
+    # busca usuario en BBDD
+    Personajes = Personajes.query.filter_by(id=id).first()
+    if Personajes:
+        # the user was not found on the database
+        return jsonify({"msg": "User already exists"}), 401
+    else:
+        # crea usuario nuevo
+        # crea registro nuevo en BBDD de 
+        return jsonify({"msg": "User created successfully"}), 200
 
 
 
