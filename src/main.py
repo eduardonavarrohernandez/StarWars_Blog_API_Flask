@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User
+from models import db, User, Planetas, Personajes
 #from models import Person
 
 #import JWT for tokenization
@@ -69,18 +69,18 @@ def register_user():
 
 @app.route('/login', methods=['POST']) 
 def login():
-    email = request.json.get("email", None)
+    user = request.json.get("email", None)
     password = request.json.get("password", None)
 
     # valida si estan vacios los ingresos
-    if email is None:
+    if user is None:
         return jsonify({"msg": "No email was provided"}), 400
     if password is None:
         return jsonify({"msg": "No password was provided"}), 400
 
     # para proteger contraseñas usen hashed_password
     # busca usuario en BBDD
-    user = User.query.filter_by(email=email, password=password).first()
+    user = User.query.filter_by(user=user, password=password).first()
     if user is None:
         return jsonify({"msg": "Invalid username or password"}), 401
     else:
