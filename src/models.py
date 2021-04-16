@@ -20,6 +20,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
+
 class Personajes(db.Model):
     __tablename__ = 'personajes'
 

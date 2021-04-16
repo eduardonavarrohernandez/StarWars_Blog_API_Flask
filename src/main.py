@@ -94,6 +94,7 @@ def Personajes():
     id = request.json.get("id", None)
     name = request.json.get("name", None)
     
+    
 
     # valida si estan vacios los ingresos
     if id is None:
